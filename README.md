@@ -1,4 +1,4 @@
-# unit-4-3-assignment-b
+# unit-4-4-assignment
 
 ## Git Config
 ```
@@ -22,58 +22,106 @@ After you compile the shape classes, you only need to compile and run `Main.java
 
 # Instructions  
 
-You will write a method named `isPrime` that returns a boolean, and that takes in a positive number and displays whether it is prime or not.  A number is prime if it is only divisible by 1 and itself.  Note that 1 is not prime.  Assume that the input is always greater than 0.
+## Problem 1
+Write a program which takes a String input and then prints the number of times the letter p is followed by a vowel (y is not considered a vowel here). Assume that your entire input is entered in lower case.
 
-**Hint:** Assume the number is prime.  If you find out that it isn't prime, then set your answer to false.
-**Alternative Hint:** You can take advantage of the fact that the `return` statement will end the execution of your code to return the correct value of `true` or `false` when you find out whether or not a number is prime or not.
+Sample run
+```
+Input String:
+Peter Piper picked a pack of pickle peppers.
+Contains p followed by a vowel 8 times.
+```
 
-To help you, I highly suggest you test a few numbers, and do it "manually" as a "human being" to help you figure out how you would create an algorithm that you would program as Java code.
+## Problem 2
+The five most common letters in the English alphabet are e, t, a, i, o. Write a program which takes a string input and then prints the same string without the five most common letters in the English alphabet (e, t, a, i o).  Assume your String input is in all lowercase.
 
-| Input | Expected Output |
-| --- | ---|
-| 1 | `false` |
-| 2 | `true` |
-| 3 | `true` |
-| 4 | `false` |
-| 5 | `true` |
-| 8675309| `true` |
+Hint: one good way to do this is to make a new String variable and add all the letters you want to print (i.e. everything except the five most common letters) to it.
+
+Sample Run:
+```
+Enter a string:
+Peter Piper picked a pack of pickle peppers.
+pr ppr pckd  pck f pckl ppprs.
+```
+
+## Problem 3
+Take two String inputs of the same length and merge these two strings in reverse order by taking one character from each String (starting with the second string entered) and alternating. If the Strings are not the same length, the program should print "error".
+
+Sample Run 1:
+```
+Enter two strings:
+balloon
+atrophy
+ynhopoolrltaab
+```
+Sample Run 2:
+```
+Enter two strings:
+terrible
+mistake
+error
+```
 
 ## Sample Solutions
 ```java
-public static boolean isPrime(int N)
-{
-  if (N == 1)
-  {
-    return false;
-  }
+// Problem 1
+Scanner sc = new Scanner(System.in);
+String input;
+int count = 0;
 
-  for (int i = 2; i < N; i++)
+System.out.println("Input String:");
+input = sc.nextLine();
+
+for (int i = 0; i < input.length()-1; i++)
+{
+  String pair = input.substring(i, i+2);
+  if (pair.equals("pa") || pair.equals("pe") || pair.equals("pi") || pair.equals("po") || pair.equals("pu"))
   {
-    if (N % i == 0)
-    {
-      return false;
-    }
+    count++;
   }
-  return true;
 }
 
-// Alternative solution
+System.out.println("Contains p followed by a vowel " + count + " times.");
 
-public static boolean isPrime(int N)
+// Problem 2
+Scanner sc = new Scanner(System.in);
+String input;
+String other = "";
+
+System.out.println("Input String:");
+input = sc.nextLine();
+
+for (int i = 0; i < input.length(); i++)
 {
-  boolean output = true;
-  for (int i = 2; i < N; i++)
+  String ch = input.substring(i, i+1);
+  if (! (ch.equals("e") || ch.equals("t") || ch.equals("a") || ch.equals("i") || ch.equals("o")) )
   {
-    if (N % i == 0)
-    {
-      output = false;
-    }
+    other += ch;
   }
-
-  if (N == 1)
-  {
-    output = false;
-  }
-  return output;
 }
+System.out.println(other);
+
+// Problem 3
+Scanner sc = new Scanner(System.in);
+String str1;
+String str2;
+String output = "";
+
+System.out.println("Enter two strings:");
+str1 = sc.nextLine();
+str2 = sc.nextLine();
+
+if (str1.length() == str2.length())
+{
+  for (int i = str1.length()-1; i >= 0; i--)
+  {
+    output += str2.substring(i, i+1) + str1.substring(i, i+1);
+  }
+}
+else
+{
+  System.out.println("error");
+}
+
+System.out.println(output);
 ```
